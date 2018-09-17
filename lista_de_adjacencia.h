@@ -41,14 +41,15 @@ GrafoLA* criaGrafoLA(int v){
     GLA->vertices = v;
     return GLA;
 }
-
-GrafoLA* insereVerticeLA(GrafoLA* g){
-    //desalocar toda a lista de adjacencias do grafo e criar uma maior?
-    //g->a = (ListaEncadeada*) realloc(g->a, g->vertices+1);
-    //g->vertices++;
+/*********************************************************************************************/
+/*recebe um grafo LA, cria uma Lista de Listas encadeadas com um espaço a mais que a do grafo*/
+/*original, copia todas as arestas da lista do grafo original e a substitui                  */
+/*Caso suceda, retorna 1. Caso nao haja espaço para a lita nova, retorna 0                   */
+/*********************************************************************************************/
+int insereVerticeLA(GrafoLA* g){
     ListaEncadeada *nova = alocaListaAdjacente(g->vertices+1);
     if(nova == NULL)
-        return NULL;
+        return 0;
     for(int i = 0; i < g->vertices; i++){
 
         for(int j = 0; j < g->a[i].n; j++){
@@ -60,30 +61,16 @@ GrafoLA* insereVerticeLA(GrafoLA* g){
     }
     g->a = nova;
     g->vertices++;
+    return 1;
 }
 
-GrafoLA* insereArestaLA(GrafoLA* g, int u, int v, char* nome){
-    if(insereLista(&g->a[u], criarNo(v, nome)) == NULL)
-        return NULL;
-    if(insereLista(&g->a[v], criarNo(u, nome)) == NULL)
-        return NULL;
+/****************************************************************************************/
+/*Recebe um grafo LA, um par de vertices e o nome da aresta e insere uma aresta no grafo*/
+/****************************************************************************************/
+void insereArestaLA(GrafoLA* g, int u, int v, char* nome){
+    insereLista(&g->a[u], criarNo(v, nome));
+    insereLista(&g->a[v], criarNo(u, nome)); 
     g->arestas++;
-}
-
-/************************************************/
-/*Recebe um ponteiro para GrafoLA e printa todas*/
-/*as arestas dos vertices do grafo              */
-/************************************************/
-void printGrafoLA(GrafoLA* g){
-
-    for(int i = 0; i < g->vertices; i++){
-
-        printf("Arestas do vertice %d\n", i);
-
-        printListaEncadeada(&g->a[i]);
-
-    }
-
 }
 
 #endif // LISTA_DE_ADJACENCIA_H_INCLUDED
