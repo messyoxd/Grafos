@@ -24,11 +24,8 @@ ListaEncadeada* criaLista(){
 /***********************************************************/
 /*Recebe ponteiro para uma ListaEncadeada e um No não vazio*/
 /*e insere o no no inicio da lista encadeada.              */
-/*Caso a lista ou o no nao existam, devolva NULL           */
 /***********************************************************/
-ListaEncadeada* insereLista(ListaEncadeada* l,Node* no){
-    if(l == NULL || no == NULL)
-        return NULL;
+void insereLista(ListaEncadeada* l,Node* no){
     Node* aux = l->h;
     l->h = no;
     l->h->p = aux;
