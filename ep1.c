@@ -469,7 +469,7 @@ GrafoLA* kruskal(GrafoLA* g){
 	Aresta *aresta_aux = NULL;
 	//enquanto Gl tiver menos arestas que o número de vertices
 	while(gl->arestas < g->vertices-1){
-		//	selecione a aresta de menor custo em aux que Gl já não a possua e a adicione em Gl, tal que não haja ciclos
+		//selecione a aresta de menor custo em aux que Gl já não a possua e a adicione em Gl, tal que não haja ciclos
 		aresta_aux = getLowerCostEdge(aux);
 		insereArestaLA(gl, aresta_aux->u, aresta_aux->v, aresta_aux->custo);
 		//checar se gl tem ciclos com o floresta
@@ -491,10 +491,14 @@ int main()
     int vertices;
     int arestas;
     printf("Digite o nome do arquivo:\n");
-    scanf(" %s",arquivo);
+    scanf("%s",arquivo);
     strcat(arquivo, ".txt");
     FILE *fp;
     fp = fopen(arquivo, "r");
+    if(fp == NULL){
+        printf("Arquivo nao encontrado!");
+	return 0;
+    }
     fscanf(fp, "%d", &vertices);
     fscanf(fp, "%d", &arestas);
     GrafoLA *a = criaGrafoLA(vertices);
