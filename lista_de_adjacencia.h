@@ -14,7 +14,7 @@ typedef struct Grafo_LA{
 /******************************************************************/
 ListaEncadeada* alocaListaAdjacente(int v){
 
-    ListaEncadeada* LA = malloc(sizeof(ListaEncadeada)*v);
+    ListaEncadeada* LA = (ListaEncadeada*)malloc(sizeof(ListaEncadeada)*v);
     if(LA == NULL)
         return NULL;
     for(int i = 0; i < v; i++){
@@ -67,10 +67,36 @@ int insereVerticeLA(GrafoLA* g){
 /****************************************************************************************/
 /*Recebe um grafo LA, um par de vertices e o nome da aresta e insere uma aresta no grafo*/
 /****************************************************************************************/
-void insereArestaLA(GrafoLA* g, int u, int v, char* nome){
-    insereLista(&g->a[u], criarNo(v, nome));
-    insereLista(&g->a[v], criarNo(u, nome)); 
+void insereArestaLA(GrafoLA* g, int u, int v, int custo){
+    insereLista(&g->a[u], criarNo(v, custo));
+    insereLista(&g->a[v], criarNo(u, custo)); 
     g->arestas++;
 }
+
+/*
+ * @Brief    : Essa funcao retira um par de arestas
+ *
+ * @Entrada  : GrafoLA g, vertices u e v, que serao retirados
+ *
+ * @Saida    : Retorna 1, caso a remocao seja um sucesso; 0, caso contrario
+*/
+int retiraArestaLA(GrafoLA *g, int u, int v, int custo){
+    /*
+    if(!removeLista(&g->a[u], v, custo) == 0)
+        return 0;
+    if(!removeLista(&g->a[v], u, custo) == 0)
+        return 0;
+    else{
+        g->arestas -= 1;
+        return 1;
+    }
+      */  
+    removeLista(&g->a[u], v, custo);
+    removeLista(&g->a[v], u, custo);
+    g->arestas -= 1;
+    return 1;
+}
+
+
 
 #endif // LISTA_DE_ADJACENCIA_H_INCLUDED

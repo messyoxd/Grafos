@@ -43,4 +43,52 @@ Node* removePrimeiroDaLista(ListaEncadeada* l){
     return no;
 }
 
+/*
+ * @Brief    : Essa funcao procura um node com conteudo e custo igual ao recebido e o remove
+ *
+ * @Entrada  : ListaEncadeada l e conteudo e custo do node
+ *
+ * @Saida    : Retorna 1, caso consiga excluir com sucesso; 0, caso contrario
+*/
+ int removeLista(ListaEncadeada *l, int conteudo, int custo){
+
+    Node *aux = l->h;
+    if(l->h->conteudo == conteudo && l->h->custo == custo){
+        //printf("yeaa\n");
+       // printf("yeaa\n");
+        l->h = aux->p;
+        aux->p =NULL;
+        free(aux);
+    }
+    else{
+        Node *aux2 = aux->p;
+        //printf("conteudo a ser excluido: %d\n", conteudo);
+        while(aux2){
+    /*
+            printf("aux->conteudo : %d\n", aux->conteudo);
+            printf("aux2->conteudo : %d\n", aux2->conteudo);
+    */
+            if(aux2->conteudo == conteudo && aux2->custo == custo){
+               /*printf("yeaa\n");
+                printf("aux->conteudo : %d\n", aux->conteudo);
+                printf("aux2->conteudo : %d\n", aux2->conteudo);
+                printf("yeaa\n");*/
+                aux->p = aux2->p;
+                aux2->p = NULL;
+                free(aux2);
+                return 1;
+            }
+            else{
+                aux = aux2;
+                aux2 = aux2->p;
+            }
+                
+
+        }
+    }
+   
+    return 0;
+
+ }
+
 #endif // LISTA_ENCADEADA_H_INCLUDED

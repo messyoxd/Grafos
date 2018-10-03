@@ -28,7 +28,7 @@ void printListaEncadeada(ListaEncadeada* l){
     if(l->h){
         Node* aux = l->h;
         while(aux){
-            printf("conteudo = %d\n", aux->conteudo);
+            printf("conteudo = %d custo = %d\n", aux->conteudo, aux->custo);
             aux = aux->p;
         }
     }
@@ -36,5 +36,49 @@ void printListaEncadeada(ListaEncadeada* l){
         printf("lista vazia!\n");
 
 }
+
+Node* getLastNode(ListaEncadeada* l){
+
+    if(l->h){
+        Node* aux = l->h;
+        while(aux->p){
+            aux = aux->p;
+        }
+        return aux;
+    }
+    return l->h;
+
+}
+
+Node* removeLastNode(ListaEncadeada* l){
+
+    if(l->h){
+
+        Node* aux = l->h;
+        Node* aux2 = aux->p;
+
+        if(!aux2){
+            l->h = NULL;
+            l->n--;
+            return aux;
+        }
+
+        else{
+            while(aux2->p){
+                aux = aux2;
+                aux2 = aux2->p;                
+            }    
+        }
+        
+
+        free(aux2);
+        aux->p = NULL;
+        l->n--;
+        return NULL;
+    }
+    return l->h;
+
+}
+
 
 #endif // LISTA_ENCADEADA_CONTROLLER_H_INCLUDED
