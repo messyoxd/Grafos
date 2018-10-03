@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+/*
+ * Alunos :
+ * Leonardo Gomes Fernandes
+ * Messyo Sousa Brito
+ * Nicolas Holanda de Menezes
+*/
 /*Celula simples*/
 typedef struct node{
 
